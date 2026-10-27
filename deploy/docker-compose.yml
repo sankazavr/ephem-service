@@ -1,0 +1,16 @@
+services:
+  ephem:
+    build:
+      context: ..
+      args:
+        GIT_SHA: ${GIT_SHA:-unknown}
+    image: ephem-service:latest
+    container_name: ephem-service
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8095:8095"
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
